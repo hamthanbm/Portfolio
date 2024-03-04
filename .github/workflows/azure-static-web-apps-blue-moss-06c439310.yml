@@ -22,15 +22,6 @@ jobs:
         docker build -t banetaipan/portfolio:V1.0 .
         docker push banetaipan/portfolio:V1.0
 
-      - name: Login to Azure Container Registry and push image
-      env:
-        AZURE_REGISTRY_USERNAME: ${{ secrets.portfolio }}
-        AZURE_REGISTRY_PASSWORD: ${{ secrets.6Ec4D8rdg1yIt1CdFdyN0pFOGnJx0AHZKcxjNdHN4f+ACRCfySkX }}
-      run: |
-        echo $AZURE_REGISTRY_PASSWORD | docker login portfolio.azurecr.io -u $AZURE_REGISTRY_USERNAME --password-stdin
-        docker tag banetaipan/portfolio:V1.0 portfolio.azurecr.io/portfolio:V1.0
-        docker push portfolio.azurecr.io/portfolio:V1.0
-
   deploy:
     runs-on: ubuntu-latest
 
