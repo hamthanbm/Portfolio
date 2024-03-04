@@ -13,13 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Login to DockerHub
-        run: docker login -u ${{ secrets.banetaipan }} -p ${{ secrets.dckr_pat_UyFq0EPAzzd2WC7bzNWN9sgdPrs }}
-
-      - name: Build and push Docker image
-        run: |
-          docker build -t banetaipan/portfolio:V1.0 
-          docker push banetaipan/portfolio:V1.0
+      - name: Build and push Docker image to DockerHub
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.banetaipan }}
+        DOCKERHUB_TOKEN: ${{ secrets.dckr_pat_ir8V1ExJxm0Bv1rcm14B0HK9AI4 }}
+      run: |
+        echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+        docker build -t banetaipan/portfolio:V1.0 .
+        docker push banetaipan/portfolio:V1.0
 
   deploy:
     runs-on: ubuntu-latest
