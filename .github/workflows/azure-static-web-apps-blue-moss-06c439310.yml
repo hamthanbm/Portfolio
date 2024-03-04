@@ -32,9 +32,9 @@ jobs:
         with:
           login-server: portfolio.azurecr.io
           username: ${{ secrets.portfolio }}
-          password: ${{ secrets.6Ec4D8rdg1yIt1CdFdyN0pFOGnJx0AHZKcxjNdHN4f+ACRCfySkX }}
+          password: ${{ secrets.dckr_pat_ir8V1ExJxm0Bv1rcm14B0HK9AI4 }}
 
       - name: Pull and run Docker image from Azure Container Registry
         run: |
-          docker pull portfolio.azurecr.io/your-image-name:latest
-          docker run -d -p 80:80 portfolio.azurecr.io/your-image-name:latest
+          docker pull portfolio.azurecr.io/portfolio:V1.0
+          docker run -d -p 80:80 portfolio.azurecr.io/portfolio:V1.0
