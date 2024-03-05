@@ -1,12 +1,29 @@
-name: End-to-end tests
-on: push
+name: End-to-end Tests
+
+on:
+  push:
+    branches: [main] # Only run on pushes to the "main" branch (adjust as needed)
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cypress run
+
+      - name: Install dependencies (ensure lockfile exists)
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies (if cache miss)
+        run: npm install # Adjust for your package manager (npm, yarn, pnpm)
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          component: true
+          component: true # Assuming you have component testing configured
+
