@@ -11,6 +11,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Install pnpm (choose one method)
+      - name: Install pnpm (using actions/setup-node)
+        uses: pkgs/pnpm@v6 # Replace with the desired pnpm version if needed
+      # OR
+      - name: Install pnpm (separate script)
+        run: |
+          curl -sL https://pnpm.io/install.sh | sudo bash
+
       - name: Setup Node.js environment (adjust version if needed)
         uses: actions/setup-node@v3
         with:
@@ -31,4 +39,3 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true # Assuming you have component testing configured
-
