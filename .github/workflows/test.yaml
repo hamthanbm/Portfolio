@@ -1,28 +1,12 @@
-# Install pnpm (choose one method)
-- name: Install pnpm (using actions/setup-node)
-  uses: pkgs/pnpm@v6 # Replace with the desired pnpm version if needed
-# OR
-- name: Install pnpm (separate script)
-  run: |
-    curl -sL https://pnpm.io/install.sh | sudo bash
-
-- name: Setup Node.js environment (adjust version if needed)
-  uses: actions/setup-node@v3
-  with:
-    node-version: 16 # Replace with the appropriate version for your project
-
-- name: Install dependencies (ensure pnpm-lock.yaml exists)
-  uses: actions/cache@v3
-  with:
-    path: node_modules
-    key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }} # Cache based on pnpm-lock.yaml
-    restore-keys: |
-      ${{ runner.os }}-pnpm-
-
-- name: Install dependencies (if cache miss)
-  run: pnpm install # Use pnpm install for pnpm users
-
-- name: Run Cypress tests
-  uses: cypress-io/github-action@v6
-  with:
-    component: true # Assuming you have component testing configured
+name: End-to-end tests
+on: push
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
