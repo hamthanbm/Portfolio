@@ -20,7 +20,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies (if cache miss)
-        run: npm install: Generates package-lock.json
+        run: pnpm install: Generates pnpm-lock.yaml
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
